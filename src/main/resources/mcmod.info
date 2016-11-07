@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "stattrak",
+  "name": "Stat-Trak™ Forge Weapons",
+  "description": "Adds an enchantment and item to apply patented Stat-Trak™ technology to all of your equipment!",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Trentv4"],
+  "credits": "wiiv in MMD for the tracker item texture",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
