@@ -31,7 +31,7 @@ public class StatTrak
 	@SidedProxy(clientSide = "net.trentv.stattrak.client.ClientProxy", serverSide = "net.trentv.stattrak.server.ServerProxy")
 	public static CommonProxy proxy;
 
-	public static EnchantmentStatTrak STATTRAK = new EnchantmentStatTrak(Enchantment.Rarity.COMMON, EnumEnchantmentType.ALL, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
+	public static EnchantmentStatTrak STATTRAK = new EnchantmentStatTrak(Enchantment.Rarity.RARE, EnumEnchantmentType.ALL, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
 	public static Item itemTracker = new Item().setRegistryName(MODID, "tracker").setCreativeTab(CreativeTabs.MISC).setUnlocalizedName("stattrak-tracker");
 	
 	@EventHandler
