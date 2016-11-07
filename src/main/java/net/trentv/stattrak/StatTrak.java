@@ -3,8 +3,12 @@ package net.trentv.stattrak;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -36,6 +40,11 @@ public class StatTrak
 		GameRegistry.register(STATTRAK);
 		GameRegistry.register(itemTracker);
 		GameRegistry.addRecipe(new RecipeTracker());
+		GameRegistry.addShapedRecipe(new ItemStack(itemTracker, 1), 
+		                             new Object[] {"RRR",
+		                                           "IOI",
+		                                           " I ",
+		                                           'R', Items.REDSTONE, 'I', Items.IRON_INGOT, 'O', new ItemStack(Items.DYE, 1, EnumDyeColor.ORANGE.getDyeDamage())});
 		proxy.registerRenderers();
 	}
 
