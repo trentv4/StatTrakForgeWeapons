@@ -29,12 +29,13 @@ public class StatTrak
 
 	public static EnchantmentStatTrak STATTRAK = new EnchantmentStatTrak(Enchantment.Rarity.COMMON, EnumEnchantmentType.ALL, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
 	public static Item itemTracker = new Item().setRegistryName(MODID, "tracker").setCreativeTab(CreativeTabs.MISC).setUnlocalizedName("stattrak-tracker");
-
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		GameRegistry.register(STATTRAK);
 		GameRegistry.register(itemTracker);
+		GameRegistry.addRecipe(new RecipeTracker());
 		proxy.registerRenderers();
 	}
 
