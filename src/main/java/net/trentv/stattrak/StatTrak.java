@@ -26,7 +26,7 @@ public class StatTrak
 	public static StatTrak instance;
 
 	public static final String MODID = "stattrak";
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.0.1";
 
 	@SidedProxy(clientSide = "net.trentv.stattrak.client.ClientProxy", serverSide = "net.trentv.stattrak.server.ServerProxy")
 	public static CommonProxy proxy;
