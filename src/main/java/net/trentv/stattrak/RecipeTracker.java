@@ -12,7 +12,7 @@ public class RecipeTracker implements IRecipe
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn)
 	{
-		boolean finalResult = false;
+		item = null;
 		
 		int nonNullSlots = 0;
 		for(int i = 0; i < inv.getSizeInventory(); i++)
@@ -25,24 +25,31 @@ public class RecipeTracker implements IRecipe
 		}
 		if(nonNullSlots == 2)
 		{
+			ItemStack item1 = null;
+			ItemStack item2 = null;
 			for(int i = 0; i < inv.getSizeInventory(); i++)
 			{
 				ItemStack a = inv.getStackInSlot(i);
 				if(a != null)
 				{
-					if(a.getItem() != StatTrak.itemTracker)
+					if(item1 == null)
 					{
-						item = a;
-						break;
+						item1 = a;
+					}
+					else
+					{
+						item2 = a;
 					}
 				}
 			}
+			if(item1.getItem() != StatTrak.itemTracker && item2.getItem() == StatTrak.itemTracker) item = item1;
+			if(item1.getItem() == StatTrak.itemTracker && item2.getItem() != StatTrak.itemTracker) item = item2;
 			if(item != null)
 			{
 				return true;
 			}
 		}
-		return finalResult;
+		return false;
 	}
 
 	@Override
