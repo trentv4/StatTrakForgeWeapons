@@ -3,16 +3,14 @@ package net.trentv.stattrak;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class StatTrakEventHandler
 {
@@ -22,7 +20,7 @@ public class StatTrakEventHandler
 		if(!event.getEntity().getEntityWorld().isRemote)
 		{
 			Entity attacker = event.getSource().getEntity();
-			if(attacker != null)
+			if(attacker != null && attacker instanceof EntityLivingBase)
 			{
 				Iterable<ItemStack> b = attacker.getHeldEquipment();
 				ItemStack heldItem = b.iterator().next();
