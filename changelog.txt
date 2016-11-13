@@ -1,5 +1,2 @@
-Additions
-	* Add Russian localization courtesy of Alexey Krainev.
-
 Bugfixes
-	* Fix bug where any two items could be combined to obtain StatTrak technology.
+	* Fix crash when a Dispenser kills an entity.
