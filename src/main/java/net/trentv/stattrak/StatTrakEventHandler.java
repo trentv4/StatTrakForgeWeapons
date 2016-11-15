@@ -35,9 +35,11 @@ public class StatTrakEventHandler
 							// Update the kill count with the "new" count
 							heldItem.getTagCompound().setInteger("stattrak-tracker", stattrakKillCount);
 							
+							String s = heldItem.getTagCompound().getString("stattrak-message");
+							
 							// Create the Lore tag and assign it. I18n is used to translate from the language file.
 							NBTTagList loreTagList = new NBTTagList();
-							loreTagList.appendTag(new NBTTagString(I18n.translateToLocal("stattrak-killcount") + stattrakKillCount));
+							loreTagList.appendTag(new NBTTagString(s + ": " + stattrakKillCount));
 							NBTTagCompound displayTag = heldItem.getTagCompound().getCompoundTag("display");
 							displayTag.setTag("Lore", loreTagList);
 							heldItem.getTagCompound().setTag("display", displayTag);

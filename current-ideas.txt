@@ -1,0 +1,5 @@
+* Renaming the tracker changes the text
+    * i.e. "Confirmed Dunks"
+    * Can reapply over top an existing Stat-Trak item
+    
+* Dungeon loot trackers which are malfunctioning and give random lore text

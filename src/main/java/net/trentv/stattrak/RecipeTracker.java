@@ -3,6 +3,8 @@ package net.trentv.stattrak;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class RecipeTracker implements IRecipe
@@ -12,6 +14,8 @@ public class RecipeTracker implements IRecipe
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn)
 	{
+		ItemStack itemTracker = null;
+		ItemStack trackedItem = null;
 		item = null;
 		
 		int nonNullSlots = 0;
@@ -21,33 +25,27 @@ public class RecipeTracker implements IRecipe
 			if(stack != null)
 			{
 				nonNullSlots++;
+				if(stack.getItem() == StatTrak.itemTracker)
+				{
+					itemTracker = stack;
+				}
+				else
+				{
+					trackedItem = stack;
+				}
 			}
 		}
 		if(nonNullSlots == 2)
 		{
-			ItemStack item1 = null;
-			ItemStack item2 = null;
-			for(int i = 0; i < inv.getSizeInventory(); i++)
-			{
-				ItemStack a = inv.getStackInSlot(i);
-				if(a != null)
-				{
-					if(item1 == null)
-					{
-						item1 = a;
-					}
-					else
-					{
-						item2 = a;
-					}
-				}
-			}
-			if(item1.getItem() != StatTrak.itemTracker && item2.getItem() == StatTrak.itemTracker) item = item1;
-			if(item1.getItem() == StatTrak.itemTracker && item2.getItem() != StatTrak.itemTracker) item = item2;
-			if(item != null)
-			{
-				return true;
-			}
+			item = trackedItem;
+			String s = itemTracker.getDisplayName();
+			String q = I18n.translateToLocal("item.stattrak-tracker.name");
+			String message = I18n.translateToFallback("stattrak-killcount");
+			if(!s.equals(q)) message = s;
+			if(!item.hasTagCompound()) item.setTagCompound(new NBTTagCompound());
+			NBTTagCompound tags = item.getTagCompound();
+			tags.setString("stattrak-message", s);
+			return true;
 		}
 		return false;
 	}
