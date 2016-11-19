@@ -40,7 +40,7 @@ public class RecipeTracker implements IRecipe
 			item = trackedItem;
 			String s = itemTracker.getDisplayName();
 			String q = I18n.translateToLocal("item.stattrak-tracker.name");
-			String message = I18n.translateToFallback("stattrak-killcount");
+			String message = I18n.translateToLocal("stattrak-killcount");
 			if(!s.equals(q)) message = s;
 			if(!item.hasTagCompound()) item.setTagCompound(new NBTTagCompound());
 			NBTTagCompound tags = item.getTagCompound();
