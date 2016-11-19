@@ -33,6 +33,7 @@ public class StatTrak
 
 	public static EnchantmentStatTrak STATTRAK = new EnchantmentStatTrak(Enchantment.Rarity.RARE, EnumEnchantmentType.ALL, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
 	public static Item itemTracker = new Item().setRegistryName(MODID, "tracker").setCreativeTab(CreativeTabs.MISC).setUnlocalizedName("stattrak-tracker");
+	public static Item itemDefectiveTracker = new Item().setRegistryName(MODID, "defective-tracker").setCreativeTab(CreativeTabs.MISC).setUnlocalizedName("defective-stattrak-tracker");
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
