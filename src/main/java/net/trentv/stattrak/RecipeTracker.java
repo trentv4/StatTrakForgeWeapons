@@ -1,15 +1,19 @@
 package net.trentv.stattrak;
 
+import java.util.Random;
+
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 
 public class RecipeTracker implements IRecipe
 {
 	private ItemStack item;
+	private Random random = new Random();
 	
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn)
@@ -25,7 +29,7 @@ public class RecipeTracker implements IRecipe
 			if(stack != null)
 			{
 				nonNullSlots++;
-				if(stack.getItem() == StatTrak.itemTracker)
+				if(stack.getItem() == StatTrak.itemTracker || stack.getItem() == StatTrak.itemDefectiveTracker)
 				{
 					itemTracker = stack;
 				}
@@ -39,6 +43,10 @@ public class RecipeTracker implements IRecipe
 		{
 			item = trackedItem;
 			String s = itemTracker.getDisplayName();
+			if(itemTracker.getItem() == StatTrak.itemDefectiveTracker)
+			{
+				s = I18n.translateToLocal("defective-stattrak-message-" + random.nextInt(10));
+			}
 			String q = I18n.translateToLocal("item.stattrak-tracker.name");
 			String message = I18n.translateToLocal("stattrak-killcount");
 			if(!s.equals(q)) message = s;
