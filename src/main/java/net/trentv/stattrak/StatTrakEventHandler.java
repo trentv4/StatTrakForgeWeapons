@@ -8,7 +8,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootEntryItem;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.world.storage.loot.RandomValueRange;
+import net.minecraft.world.storage.loot.conditions.LootCondition;
+import net.minecraft.world.storage.loot.functions.LootFunction;
+import net.minecraft.world.storage.loot.functions.SetCount;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -45,6 +53,34 @@ public class StatTrakEventHandler
 							heldItem.getTagCompound().setTag("display", displayTag);
 						}
 					}
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLootTableLoadEvent(LootTableLoadEvent event)
+	{
+		ResourceLocation[] tables = new ResourceLocation[]{
+				LootTableList.CHESTS_SIMPLE_DUNGEON,
+				LootTableList.CHESTS_VILLAGE_BLACKSMITH,
+				LootTableList.CHESTS_ABANDONED_MINESHAFT,
+				LootTableList.CHESTS_VILLAGE_BLACKSMITH,
+				LootTableList.CHESTS_NETHER_BRIDGE,
+				LootTableList.CHESTS_STRONGHOLD_CROSSING,
+				LootTableList.CHESTS_STRONGHOLD_CORRIDOR,
+				LootTableList.CHESTS_DESERT_PYRAMID
+		};
+		for(ResourceLocation a : tables)
+		{
+			if(event.getName() == a)
+			{
+				if(event.getTable().getPool("defective-stattrak-trackers") == null)
+				{
+					event.getTable().addPool(new LootPool(
+							new LootEntryItem[]{new LootEntryItem(StatTrak.itemDefectiveTracker, 20, 0, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1, 2))},
+							new LootCondition[0], "defective-stattrak-trackers")},
+	                        new LootCondition[0], new RandomValueRange(0, 1), new RandomValueRange(0, 0), "defective-stattrak-trackers"));
 				}
 			}
 		}
