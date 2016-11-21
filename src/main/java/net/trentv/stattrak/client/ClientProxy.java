@@ -11,5 +11,6 @@ public class ClientProxy implements CommonProxy
 	public void registerRenderers()
 	{
 		ModelLoader.setCustomModelResourceLocation(StatTrak.itemTracker, 0, new ModelResourceLocation(StatTrak.itemTracker.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(StatTrak.itemDefectiveTracker, 0, new ModelResourceLocation(StatTrak.itemDefectiveTracker.getRegistryName(), "inventory"));
 	}
 }

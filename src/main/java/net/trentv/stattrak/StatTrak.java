@@ -40,6 +40,7 @@ public class StatTrak
 	{
 		GameRegistry.register(STATTRAK);
 		GameRegistry.register(itemTracker);
+		GameRegistry.register(itemDefectiveTracker);
 		GameRegistry.addRecipe(new RecipeTracker());
 		GameRegistry.addShapedRecipe(new ItemStack(itemTracker, 1), 
 		                             new Object[] {"RRR",
