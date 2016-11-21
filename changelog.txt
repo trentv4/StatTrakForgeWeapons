@@ -1,2 +1,7 @@
-Bugfixes
-	* Fix crash when a Dispenser kills an entity.
+Additions
+    Add ability to specify custom kill counters. Rename the tracker item before application to receive your "Custom kill counter: 69"
+    Add Defective StatTrak Tracker
+        This appears as dungeon and village loot, and will give you a random predefined custom kill counter when applied.
+
+Changes
+    Remove unnecessary dash in Russian localization
