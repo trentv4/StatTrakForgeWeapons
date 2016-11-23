@@ -1,7 +1,7 @@
 enchantment.stattrak=Оснащено StatTrak™
 stattrak-killcount=Убийства, записанные StatTrak™: 
 item.stattrak-tracker.name=Датчик StatTrak™
-item.defective-stattrak-tracker.name=неисправен датчик StatTrak™
+item.defective-stattrak-tracker.name=Неисправный датчик StatTrak™
 defective-stattrak-message-1=Confirmed dunks
 defective-stattrak-message-2=Scrubs rekt
 defective-stattrak-message-3=Confirmed PRs
