@@ -3,7 +3,10 @@ package net.trentv.stattrak;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import mcjty.lib.compat.CompatIRecipe;
+import mcjty.lib.tools.ItemStackList;
 import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.InventoryCrafting;
@@ -79,6 +82,16 @@ public class RecipeTracker implements CompatIRecipe
 	public int getRecipeSize()
 	{
 		return 2;
+	}
+	
+	@Override
+	public ItemStackList getRemainingItems(InventoryCrafting inv) {
+		return ItemStackList.create(9);
+	}
+	
+	@Override
+	public ItemStack getRecipeOutput() {
+		return ItemStackTools.getEmptyStack();
 	}
 
 	private ItemStack[] getNonNullItemStacks(InventoryCrafting inv)
