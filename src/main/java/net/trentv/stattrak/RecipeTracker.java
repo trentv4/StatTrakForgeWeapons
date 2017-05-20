@@ -3,9 +3,11 @@ package net.trentv.stattrak;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.translation.I18n;
@@ -46,7 +48,6 @@ public class RecipeTracker implements IRecipe
 				tags.setString("stattrak-message", message);
 				
 				item = actualItem;
-				System.out.println(tracker.toString() + "   -   " + actualItem.toString());
 				return true;
 			}
 		}
@@ -59,7 +60,18 @@ public class RecipeTracker implements IRecipe
 	{
 		if(item == null) return null;
 		ItemStack a = item.copy();
-		a.addEnchantment(StatTrak.STATTRAK, 1);
+		boolean addEnchant = true;
+
+		NBTTagList enchants = a.getEnchantmentTagList();
+		for(int i = 0; i < enchants.tagCount(); i++)
+		{
+			NBTTagCompound tag = (NBTTagCompound) enchants.get(i);
+			if(tag.getShort("id") == (short)Enchantment.getEnchantmentID(StatTrak.STATTRAK))
+			{
+				addEnchant = false;
+			}
+		}
+		if(addEnchant) a.addEnchantment(StatTrak.STATTRAK, 1);
 		return a;
 	}
 
