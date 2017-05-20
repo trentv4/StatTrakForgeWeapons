@@ -1,14 +1,15 @@
 package net.trentv.stattrak;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
 
 public class RecipeTracker implements IRecipe
 {
@@ -18,43 +19,38 @@ public class RecipeTracker implements IRecipe
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn)
 	{
-		ItemStack itemTracker = null;
-		ItemStack trackedItem = null;
-		item = null;
+		ItemStack[] inventory = getNonNullItemStacks(inv);
 		
-		int nonNullSlots = 0;
-		for(int i = 0; i < inv.getSizeInventory(); i++)
+		if(inventory.length == 2)
 		{
-			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null)
+			// Shut up.
+			// Also, xor. First time I've ever seriously used it.
+			if(isTracker(inventory[0]) ^ isTracker(inventory[1]))
 			{
-				nonNullSlots++;
-				if(stack.getItem() == StatTrak.itemTracker || stack.getItem() == StatTrak.itemDefectiveTracker)
+				// Shut up. I mean it.
+				ItemStack tracker = isTracker(inventory[0]) ? inventory[0] : inventory[1];
+				ItemStack actualItem = isTracker(inventory[0]) ? inventory[1] : inventory[0];
+
+				String message = "";
+				if(tracker.getItem() == StatTrak.itemTracker)
 				{
-					itemTracker = stack;
+					message = I18n.translateToLocal("stattrak-killcount");
 				}
 				else
 				{
-					trackedItem = stack;
+					message = I18n.translateToLocal("defective-stattrak-message-" + (random.nextInt(10)+1));
 				}
+				
+				if(!actualItem.hasTagCompound()) actualItem.setTagCompound(new NBTTagCompound());
+				NBTTagCompound tags = actualItem.getTagCompound();
+				tags.setString("stattrak-message", message);
+				
+				item = actualItem;
+				System.out.println(tracker.toString() + "   -   " + actualItem.toString());
+				return true;
 			}
 		}
-		if(nonNullSlots == 2)
-		{
-			item = trackedItem;
-			String s = itemTracker.getDisplayName();
-			if(itemTracker.getItem() == StatTrak.itemDefectiveTracker)
-			{
-				s = I18n.translateToLocal("defective-stattrak-message-" + random.nextInt(10));
-			}
-			String q = I18n.translateToLocal("item.stattrak-tracker.name");
-			String message = I18n.translateToLocal("stattrak-killcount");
-			if(!s.equals(q)) message = s;
-			if(!item.hasTagCompound()) item.setTagCompound(new NBTTagCompound());
-			NBTTagCompound tags = item.getTagCompound();
-			tags.setString("stattrak-message", s);
-			return true;
-		}
+		
 		return false;
 	}
 
@@ -86,5 +82,26 @@ public class RecipeTracker implements IRecipe
 	public ItemStack[] getRemainingItems(InventoryCrafting inv)
 	{
 		return new ItemStack[]{null, null, null, null, null, null, null, null, null};
+	}
+	
+	private ItemStack[] getNonNullItemStacks(InventoryCrafting inv)
+	{
+		ArrayList<ItemStack> list = new ArrayList<ItemStack>();
+		//wish I had an easy for-each here...
+		for(int i = 0; i < inv.getSizeInventory(); i++)
+		{
+			ItemStack item = inv.getStackInSlot(i);
+			if(item != null)
+			{
+				list.add(item);
+			}
+		}
+		
+		return list.toArray(new ItemStack[list.size()]);
+	}
+	
+	private boolean isTracker(ItemStack a)
+	{
+		return (a.getItem() == StatTrak.itemDefectiveTracker | a.getItem() == StatTrak.itemTracker);
 	}
 }
