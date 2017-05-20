@@ -1,7 +1,6 @@
-Additions
-    Add ability to specify custom kill counters. Rename the tracker item before application to receive your "Custom kill counter: 69"
-    Add Defective StatTrak Tracker
-        This appears as dungeon and village loot, and will give you a random predefined custom kill counter when applied.
-
 Changes
-    Remove unnecessary dash in Russian localization
+	Through CompatLayer, StatTrak Forge Weapons now supports both 1.11 and 1.10
+
+Fixes
+	Prevent adding enchantment when adding StatTrak to an item that already had StatTrak
+	Fix crash when combining two items together that did not include a StatTrak item nor have a recipe
