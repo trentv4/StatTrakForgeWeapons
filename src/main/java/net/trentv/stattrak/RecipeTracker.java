@@ -3,17 +3,17 @@ package net.trentv.stattrak;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mcjty.lib.compat.CompatIRecipe;
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class RecipeTracker implements IRecipe
+public class RecipeTracker implements CompatIRecipe
 {
 	private ItemStack item;
 	private Random random = new Random();
@@ -58,7 +58,7 @@ public class RecipeTracker implements IRecipe
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv)
 	{
-		if(item == null) return null;
+		if(item == null) return ItemStackTools.getEmptyStack();
 		ItemStack a = item.copy();
 		boolean addEnchant = true;
 
@@ -81,21 +81,6 @@ public class RecipeTracker implements IRecipe
 		return 2;
 	}
 
-	@Override
-	public ItemStack getRecipeOutput()
-	{
-		if(item == null) return null;
-		ItemStack a = item.copy();
-		a.addEnchantment(StatTrak.STATTRAK, 1);
-		return a;
-	}
-
-	@Override
-	public ItemStack[] getRemainingItems(InventoryCrafting inv)
-	{
-		return new ItemStack[]{null, null, null, null, null, null, null, null, null};
-	}
-	
 	private ItemStack[] getNonNullItemStacks(InventoryCrafting inv)
 	{
 		ArrayList<ItemStack> list = new ArrayList<ItemStack>();
@@ -103,7 +88,7 @@ public class RecipeTracker implements IRecipe
 		for(int i = 0; i < inv.getSizeInventory(); i++)
 		{
 			ItemStack item = inv.getStackInSlot(i);
-			if(item != null)
+			if(!ItemStackTools.isEmpty(item))
 			{
 				list.add(item);
 			}
